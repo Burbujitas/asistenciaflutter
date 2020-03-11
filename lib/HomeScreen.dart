@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:wallet_app/src/models/rendiciones_model.dart';
+import 'package:wallet_app/src/providers/rendiciones.dart';
 
 class HomeScreen extends StatelessWidget {
+  final rendicionesProvider = new RendicionesProvider();
   @override
   Widget build(BuildContext context) {
+
+    //  return Scaffold(
+    //     appBar: AppBar(
+    //      title: Text('home'),
+    //     ),
+    //    body: _crearList(),
+    //  );
+
+
     return Container(
+
       height: MediaQuery.of(context).size.height,
       width: double.infinity,
       child: Stack(
         children: <Widget>[
+
           //Container for top data
           Container(
             margin: EdgeInsets.symmetric(horizontal: 32, vertical: 32),
@@ -135,6 +149,15 @@ class HomeScreen extends StatelessWidget {
                   color: Color.fromRGBO(243, 245, 248, 1),
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40))
                 ),
+               child: _crearList()
+               
+              );
+              
+              return Container(
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(243, 245, 248, 1),
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40))
+                ),
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -221,54 +244,9 @@ class HomeScreen extends StatelessWidget {
                       ),
 
                       SizedBox(height: 16,),
-                      
-                      ListView.builder(
-                        itemBuilder: (context, index){
-                          return Container(
-                            margin: EdgeInsets.symmetric(horizontal: 32),
-                            padding: EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(Radius.circular(20))
-                            ),
-                            child: Row(
-                              children: <Widget>[
-                                Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey[100],
-                                      borderRadius: BorderRadius.all(Radius.circular(18))
-                                  ),
-                                  child: Icon(Icons.date_range, color: Colors.lightBlue[900],),
-                                  padding: EdgeInsets.all(12),
-                                ),
 
-                                SizedBox(width: 16,),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text("Payment", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Colors.grey[900]),),
-                                      Text("Payment from Saad", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.grey[500]),),
-                                    ],
-                                  ),
-                                ),
 
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: <Widget>[
-                                    Text("+\$500.5", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Colors.lightGreen),),
-                                    Text("26 Jan", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.grey[500]),),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                        shrinkWrap: true,
-                        itemCount: 2,
-                        padding: EdgeInsets.all(0),
-                        controller: ScrollController(keepScrollOffset: false),
-                      ),
+                
 
                       //now expense
                       SizedBox(height: 16,),
@@ -344,5 +322,77 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+Widget _crearList(){
+ return FutureBuilder(
+   future: rendicionesProvider.cargarrendiciones(),
+
+   builder: (BuildContext context, AsyncSnapshot<List<RendicionModel>> snapshot) {
+     if(snapshot.hasData ){
+       final rendici= snapshot.data;
+
+       return ListView.builder(
+         itemCount: rendici.length,
+         itemBuilder: (context, i){
+
+           return _crearvista(rendici[i]);
+
+         },);
+     }else{
+       return Center( child: CircularProgressIndicator());
+     }
+   },
+ );
+}
+  Widget _crearvista(RendicionModel rendi){
+
+
+                          return Column(
+
+                                    children: <Widget>[
+                           Container(
+                              margin: EdgeInsets.symmetric(horizontal: 16),
+                              padding: EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(20))
+                              ),
+                              child: Row(
+                                children: <Widget>[
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey[100],
+                                        borderRadius: BorderRadius.all(Radius.circular(18))
+                                    ),
+                                    child: Icon(Icons.person, color: Colors.lightBlue[900],),
+                                    padding: EdgeInsets.all(12),
+                                  ),
+
+                                  SizedBox(width: 16,),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(rendi.dni, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Colors.grey[900]),),
+                                        Text(rendi.nombre, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.grey[500]),),
+                                      ],
+                                    ),
+                                  ),
+
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: <Widget>[
+                                      Text("+\$ ${rendi.gasto_actual}", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Colors.lightGreen),),
+                                      Text(rendi.motivo, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.grey[500]),),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                                    ],
+
+                          );
+
   }
 }
