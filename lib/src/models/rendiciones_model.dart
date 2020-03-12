@@ -32,8 +32,8 @@ class RendicionModel {
     factory RendicionModel.fromJson(Map<String, dynamic> json) => RendicionModel(
         dni: json["dni"],
         nombre: json["nombre"],
-        numeroreq: json["numeroreq"],
-        fecha_inicio: DateTime.parse(json["fecha_inicio"]),
+        numeroreq: json["numero_requerimiento"],
+        fecha_inicio:  DateTime.parse(json["fecha_inicio"]),
         fecha_fin: DateTime.parse(json["fecha_fin"]),
         total: json["total"],
         motivo: json["motivo"],
