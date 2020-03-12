@@ -45,12 +45,11 @@ class HomePage extends StatelessWidget {
 
 
                           return Column(
-                            
                                   
                           children:<Widget>[ InkWell(
                             onTap: (){ 
                               rendicionesProvider.cargarrequerimientos(rendi.numeroreq);
-                              Navigator.pushNamed(context, 'login',arguments: rendi);
+                              Navigator.pushNamed(context, 'screen',arguments: rendi);
                               print('${rendi.numeroreq}');},
                                                       child: Container(
                                 margin: EdgeInsets.symmetric(horizontal: 16),

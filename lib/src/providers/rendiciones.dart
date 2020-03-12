@@ -46,7 +46,7 @@ return rendi;
         
        });
 
-        print(rendi[1].tipoGasto);
+        
 return rendi;
   }
 

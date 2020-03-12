@@ -5,8 +5,7 @@ import 'package:wallet_app/src/models/requerimiento_model.dart';
 import 'package:wallet_app/src/providers/rendiciones.dart';
 
 import 'src/models/rendiciones_model.dart';
-import 'src/models/rendiciones_model.dart';
-import 'src/models/rendiciones_model.dart';
+
 
 
 class HomeScreen extends StatelessWidget {
@@ -66,7 +65,7 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
 
-                  Text("${proData.nombre}", style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16, color: Colors.blue[100]),),
+                  Text("${proData.motivo}", style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16, color: Colors.blue[100]),),
 
                   SizedBox(height : 24,),
 

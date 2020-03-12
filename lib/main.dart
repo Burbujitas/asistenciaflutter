@@ -1,7 +1,9 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:wallet_app/CardScreen.dart';
 import 'package:wallet_app/src/pages/HomePage.dart';
+
 
 import 'HomeScreen.dart';
  
@@ -15,11 +17,11 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
        
         title: 'Material App',
-        initialRoute: 'home',
+        initialRoute: 'login',
         routes: {
-          'login'    : ( BuildContext context ) => HomeScreen(),
+          'screen'   : ( BuildContext context ) => HomeScreen(),
           'home'     : ( BuildContext context ) => HomePage(),
-          
+          'login'    : ( BuildContext context ) => PasarLogin(),
         },
         theme: ThemeData(
           primaryColor: Colors.deepPurple,
