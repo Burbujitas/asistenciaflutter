@@ -24,7 +24,7 @@ class RendicionesProvider{
         
        });
 
-        print(rendi[1].fecha_inicio);
+        
 return rendi;
       
   }

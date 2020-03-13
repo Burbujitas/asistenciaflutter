@@ -16,7 +16,7 @@ class RendicionModel {
     DateTime fecha_fin;
     int total;
     String motivo;
-    int gasto_actual;
+    double gasto_actual;
 
     RendicionModel({
         this.dni='',

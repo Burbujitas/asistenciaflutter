@@ -11,7 +11,7 @@ String requerimientoModelToJson(RequerimientoModel data) => json.encode(data.toJ
 class RequerimientoModel {
     String razon;
     String tipoGasto;
-    int monto;
+    double monto;
     DateTime fecha;
     String foto;
 
@@ -27,7 +27,7 @@ class RequerimientoModel {
        
         razon: json["fact_ruc_emisor"],
         tipoGasto: json["fact_tipo_gasto"],
-        monto: json["fact_monto"],
+        monto: double.parse(json["fact_monto"].toString()) ,
         fecha: DateTime.parse(json["fact_fecha_emision"]),
         foto: json["fact_imagen"],
     );
