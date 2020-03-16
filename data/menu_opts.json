@@ -1,0 +1,14 @@
+{
+    "nombreApp": "Componentes",
+    "opciones": [{
+            "image": "assets/leer_factura.png",
+            "texto": "Leer Factura QR",
+            "funcion": "facturaQR"
+        },
+        {
+            "image": "assets/leer_factura.png",
+            "texto": "Factura Sin QR",
+            "funcion": "facturaSinQR"
+        }
+    ]
+}
