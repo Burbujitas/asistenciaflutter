@@ -1,8 +1,8 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:wallet_app/CardScreen.dart';
 import 'package:wallet_app/src/pages/HomePage.dart';
+import 'package:wallet_app/src/pages/form_factura.dart';
+import 'package:wallet_app/src/pages/menu.dart';
 
 
 import 'HomeScreen.dart';
@@ -19,12 +19,14 @@ class MyApp extends StatelessWidget {
         title: 'Material App',
         initialRoute: 'login',
         routes: {
-          'screen'   : ( BuildContext context ) => HomeScreen(),
-          'home'     : ( BuildContext context ) => HomePage(),
-          'login'    : ( BuildContext context ) => PasarLogin(),
+          'screen'      : ( BuildContext context ) => HomeScreen(),
+          'home'        : ( BuildContext context ) => HomePage(),
+          'login'       : ( BuildContext context ) => PasarLogin(),
+          'menu'        : ( BuildContext context ) => MenuPage(),
+          'formulario'  : ( BuildContext context ) => FormFacturaPage(),
         },
         theme: ThemeData(
-          primaryColor: Colors.deepPurple,
+          primaryColor: Color.fromRGBO(0, 154, 174, 1.0)
         ),
       );
     

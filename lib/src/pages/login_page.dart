@@ -66,7 +66,7 @@ class SignInOne extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(top: 20),
                   child: MaterialButton(
-                    onPressed: (){ Navigator.pushNamed(context, 'home');},//since this is only a UI app
+                    onPressed: (){ Navigator.pushNamed(context, 'menu');},//since this is only a UI app
                     child: Text('INGRESA',
                     style: TextStyle(
                       fontSize: 15,
