@@ -4,6 +4,7 @@ import 'package:wallet_app/src/pages/HomePage.dart';
 import 'package:wallet_app/src/pages/form_factura.dart';
 import 'package:wallet_app/src/pages/menu.dart';
 import 'package:wallet_app/src/preferencias_usuario/preferencias_usuario.dart';
+import 'package:wallet_app/src/providers/push_notifications_provider.dart';
 
 
 import 'HomeScreen.dart';
@@ -15,7 +16,18 @@ void main() async{
 
 } 
  
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+ @override
+  void initState() { 
+    super.initState();
+    final pushNotificationProvider= new PushNotificationProvider();    
+    pushNotificationProvider.initNotifications();
+  }
   @override
   Widget build(BuildContext context) {
     

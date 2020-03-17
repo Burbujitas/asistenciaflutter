@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "841962743009",
+    "firebase_url": "https://rendiciones-338f1.firebaseio.com",
+    "project_id": "rendiciones-338f1",
+    "storage_bucket": "rendiciones-338f1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:841962743009:android:4cc27b2ab3404d135743a0",
+        "android_client_info": {
+          "package_name": "com.controlplus.lectorqr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "841962743009-3b15klfbrd3pj4lvar8vivjebkkt9mk2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA68yxrY9NLz9BJGIeiAsIdS18jMMzkd8c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "841962743009-3b15klfbrd3pj4lvar8vivjebkkt9mk2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:841962743009:android:4ad83e1c7a8a87df5743a0",
+        "android_client_info": {
+          "package_name": "comdesign.example.wallet_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "841962743009-vtu644ri2jhuv7br5a5fjl7u7mi8qhn2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "comdesign.example.wallet_app",
+            "certificate_hash": "d0429172a9022ed8d2e6bf2078b34c362ded81e7"
+          }
+        },
+        {
+          "client_id": "841962743009-3b15klfbrd3pj4lvar8vivjebkkt9mk2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA68yxrY9NLz9BJGIeiAsIdS18jMMzkd8c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "841962743009-3b15klfbrd3pj4lvar8vivjebkkt9mk2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
