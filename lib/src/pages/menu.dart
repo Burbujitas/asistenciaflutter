@@ -1,9 +1,13 @@
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
+import 'package:intl/intl.dart';
+import 'package:wallet_app/src/models/factura_model.dart';
+import 'package:wallet_app/src/pages/form_factura.dart';
 import 'package:wallet_app/src/providers/menu_provider.dart';
 
 class MenuPage extends StatelessWidget {
+
+  final FacturaModel facturaModel = new FacturaModel(gasto: 'Alimentación',total: 0.0,igv: 0.0);
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +68,7 @@ class MenuPage extends StatelessWidget {
   void funcionesMenu( String funcion, BuildContext context ){
     if( funcion == "facturaQR") {
       print(' Con QR ');
-      facturaQR();
+      facturaQR(context);
     } else if( funcion == "facturaSinQR") {
       print(' Sin QR ');
       facturaSinQR(context);
@@ -73,25 +77,44 @@ class MenuPage extends StatelessWidget {
     }
   }
 
-
-  facturaQR() async {
-    BuildContext context;
+  facturaQR(BuildContext context) async {
     String cadena = '';
     try {
       cadena = await BarcodeScanner.scan();
       if( cadena != '' && cadena != null ) {
         print(cadena);
-        Navigator.pushNamed(context, 'formulario');
+        llenarModelo(cadena);
+        Navigator.pushNamed(
+          context,
+          FormFacturaPage.routeName,
+          arguments: facturaModel
+        );
       }
     } catch ( e ) {
       cadena = e.toString();
+      
     }
+    print(cadena);
   }
 
   void facturaSinQR(BuildContext context) {
-    Navigator.pushNamed(context, 'formulario');
+    FacturaModel factura = new FacturaModel(gasto: 'Alimentación',total: 0.0,igv: 0.0,fecha_emision: DateTime.now(), fecha_scaneo: DateTime.now());
+    Navigator.pushNamed(
+      context,
+      FormFacturaPage.routeName,
+      arguments: factura
+    );
   }
 
-  
+  void llenarModelo(String cadena) {
+    var formatter = new DateFormat('yyyy-MM-dd');
+    var ldatos = cadena.split('|');
+    facturaModel.ruc_emisor = ldatos[0];
+    facturaModel.serie = ldatos[2];
+    facturaModel.numero = ldatos[3];
+    facturaModel.igv = double.parse(ldatos[4]);
+    facturaModel.total = double.parse(ldatos[5]);
+    facturaModel.fecha_emision =  DateTime.parse(formatter.format(DateTime.parse(ldatos[6])));
+  } 
 
 }

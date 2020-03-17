@@ -34,7 +34,6 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
      
         debugShowCheckedModeBanner: false,
-       
         title: 'Material App',
         initialRoute: 'login',
         routes: {
@@ -42,7 +41,7 @@ class _MyAppState extends State<MyApp> {
           'home'        : ( BuildContext context ) => HomePage(),
           'login'       : ( BuildContext context ) => PasarLogin(),
           'menu'        : ( BuildContext context ) => MenuPage(),
-          'formulario'  : ( BuildContext context ) => FormFacturaPage(),
+          FormFacturaPage.routeName: ( BuildContext context ) => FormFacturaPage(),
         },
         theme: ThemeData(
           primaryColor: Color.fromRGBO(0, 154, 174, 1.0)
