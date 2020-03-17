@@ -3,15 +3,22 @@ import 'package:wallet_app/CardScreen.dart';
 import 'package:wallet_app/src/pages/HomePage.dart';
 import 'package:wallet_app/src/pages/form_factura.dart';
 import 'package:wallet_app/src/pages/menu.dart';
+import 'package:wallet_app/src/preferencias_usuario/preferencias_usuario.dart';
 
 
 import 'HomeScreen.dart';
  
-void main() => runApp(MyApp());
+void main() async{
+  runApp(MyApp());
+  final prefs = new PreferenciasUsuario();
+  await prefs.initPrefs();
+
+} 
  
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    
     return MaterialApp(
      
         debugShowCheckedModeBanner: false,

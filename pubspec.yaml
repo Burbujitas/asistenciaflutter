@@ -31,7 +31,8 @@ dependencies:
   path:
   barcode_scan: ^2.0.1
   datetime_picker_formfield: ^1.0.0
-
+  shared_preferences:
+    
 dev_dependencies:
   
   flutter_test:

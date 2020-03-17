@@ -1,6 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:wallet_app/src/models/usuario_model.dart';
+import 'package:wallet_app/src/providers/usuario_provider.dart';
 
 class SignInOne extends StatelessWidget {
+  UserModel cre= new UserModel();
+  UsuarioProvider usu = new UsuarioProvider();
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -31,7 +37,7 @@ class SignInOne extends StatelessWidget {
                     color: Color(0xfff5f5f5),
                     child: TextFormField(
                       style: TextStyle(
-                        color: Colors.black,
+                        color: Colors.cyan,
                         fontFamily: 'SFUIDisplay'
                       ),
                       decoration: InputDecoration(
@@ -42,6 +48,7 @@ class SignInOne extends StatelessWidget {
                           fontSize: 15
                         )
                       ),
+                      onChanged:(value) { cre.usuario=value;},
                     ),
                   ),
                 ),
@@ -50,7 +57,7 @@ class SignInOne extends StatelessWidget {
                   child: TextFormField(
                     obscureText: true,
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.cyan,
                       fontFamily: 'SFUIDisplay'
                     ),
                     decoration: InputDecoration(
@@ -61,12 +68,35 @@ class SignInOne extends StatelessWidget {
                           fontSize: 15
                         )
                     ),
+                    onChanged: (value){ cre.password=value;}
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 20),
                   child: MaterialButton(
-                    onPressed: (){ Navigator.pushNamed(context, 'menu');},//since this is only a UI app
+                    onPressed: (){ 
+                      //'45845677'
+                      if(cre.usuario==null){
+                            _mostraralerta( context,'Ingrese un dni' );
+                      }else{
+                        if(cre.password==null){
+                            _mostraralerta( context,'Ingrese una contraseña' );
+                        }else{
+                         usu.login(cre.usuario, cre.password);
+                    
+                  
+                   
+                    if(true){
+                         Navigator.pushNamed(context, 'home');//since this is only a UI app
+                    }
+                    else {
+                      _mostraralerta( context,'Ingrese un dni o contraseña correcta' );
+                    } 
+                        }
+                          
+                      }
+                  
+                     },
                     child: Text('INGRESA',
                     style: TextStyle(
                       fontSize: 15,
@@ -130,4 +160,20 @@ class SignInOne extends StatelessWidget {
       ],
     );
   }
+  _mostraralerta(BuildContext context, String mensaje){
+    showDialog(
+      context: context,
+      builder: (context){
+        return AlertDialog(
+          title: Text('Datos incorrectos'),
+          content: Text(mensaje),       
+          actions: <Widget>[
+            FlatButton(onPressed: ()=> Navigator.of(context).pop(), child: Text('Ok'))
+          ], 
+        );
+      }
+      );
+  }
+
+  
 }
