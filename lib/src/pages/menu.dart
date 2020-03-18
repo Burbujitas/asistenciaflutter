@@ -7,13 +7,19 @@ import 'package:wallet_app/src/providers/menu_provider.dart';
 
 class MenuPage extends StatelessWidget {
 
-  final FacturaModel facturaModel = new FacturaModel(gasto: 'Alimentación',total: 0.0,igv: 0.0);
+  final FacturaModel facturaModel = new FacturaModel(gasto: 'Alimentación',total: 0.0,igv: 0.0, fecha_scaneo: DateTime.now());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Lector QR'),
+        leading: GestureDetector(
+          onTap: () {},
+          child: Icon(
+            Icons.menu
+          ),
+        ),
       ),
       body: FutureBuilder(
         future: menuProvider.cargarData(),

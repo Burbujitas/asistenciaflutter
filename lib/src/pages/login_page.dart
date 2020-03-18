@@ -87,7 +87,7 @@ class SignInOne extends StatelessWidget {
                   
                    
                     if(true){
-                         Navigator.pushNamed(context, 'home');//since this is only a UI app
+                         Navigator.pushNamed(context, 'menu');//since this is only a UI app
                     }
                     else {
                       _mostraralerta( context,'Ingrese un dni o contraseña correcta' );
@@ -160,19 +160,19 @@ class SignInOne extends StatelessWidget {
       ],
     );
   }
-  _mostraralerta(BuildContext context, String mensaje){
-    showDialog(
-      context: context,
-      builder: (context){
-        return AlertDialog(
-          title: Text('Datos incorrectos'),
-          content: Text(mensaje),       
-          actions: <Widget>[
-            FlatButton(onPressed: ()=> Navigator.of(context).pop(), child: Text('Ok'))
-          ], 
-        );
-      }
-      );
+    _mostraralerta(BuildContext context, String mensaje){
+      showDialog(
+        context: context,
+        builder: (context){
+          return AlertDialog(
+            title: Text('Datos incorrectos'),
+            content: Text(mensaje),       
+            actions: <Widget>[
+              FlatButton(onPressed: ()=> Navigator.of(context).pop(), child: Text('Ok'))
+            ], 
+          );
+        }
+    );
   }
 
   

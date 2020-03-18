@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:wallet_app/src/models/factura_model.dart';
 import 'package:wallet_app/src/providers/factura_provider.dart';
+import 'package:wallet_app/src/utils/notificaciones_util.dart' as util;
 
 class FormFacturaPage extends StatefulWidget {
   static const routeName = '/formulario_factura';
@@ -23,6 +24,7 @@ class _FormFacturaPageState extends State<FormFacturaPage> {
   String dropdownValue = 'Alimentación';
   File foto;
   var fotoTomada = Icons.camera_alt;
+  var colorCamara = Color.fromRGBO(0, 154, 174, 1.0);
   //Inicializando
   FacturaModel facturaModel = new FacturaModel();
   
@@ -37,22 +39,23 @@ class _FormFacturaPageState extends State<FormFacturaPage> {
         key: _formKey,
         child: Center(
           child: ListView(
-            children: formUI(),
+            children: formUI(context),
           )
         ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(fotoTomada),
         onPressed: _tomarFoto,
-        backgroundColor: Color.fromRGBO(0, 154, 174, 1.0),
+        backgroundColor: colorCamara
+        
       ),
     );
   }
 
-  List<Widget> formUI() {
+  List<Widget> formUI(BuildContext context) {
     List<Widget> lwidget = [];
     final widgetTemp = Column(
-      children: listaFormulario(),
+      children: listaFormulario(context),
     );
     lwidget..add(widgetTemp);
     return lwidget;
@@ -72,7 +75,7 @@ class _FormFacturaPageState extends State<FormFacturaPage> {
     );
   }
 
-  List<Widget> listaFormulario() {
+  List<Widget> listaFormulario(BuildContext context) {
     
     List<Widget> lista = [];
     //RUC
@@ -229,7 +232,9 @@ class _FormFacturaPageState extends State<FormFacturaPage> {
           if (_formKey.currentState.validate()) {
             facturaModel.monto = facturaModel.total - facturaModel.igv;
             print(facturaModel.toJson());
-            facturaProvider.subirFirebase(foto);
+            util.mostraralerta(context , 'Registro Exitoso' , "La factura con número ${facturaModel.serie} - ${ facturaModel.numero }");
+        
+            //facturaProvider.subirFirebase(foto);
           }
         },
         color: Color.fromRGBO(0, 154, 174, 1.0),
@@ -279,6 +284,8 @@ class _FormFacturaPageState extends State<FormFacturaPage> {
 
     setState(() {
       fotoTomada = Icons.check_circle;
+      //colorCamara = Color.fromRGBO(255, 204, 50, 1.0);
+      colorCamara = Color.fromRGBO(77, 208, 255, 1.0);
     });
   }
 }
