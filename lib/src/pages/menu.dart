@@ -5,67 +5,74 @@ import 'package:wallet_app/src/models/factura_model.dart';
 import 'package:wallet_app/src/pages/form_factura.dart';
 import 'package:wallet_app/src/providers/menu_provider.dart';
 
-class MenuPage extends StatelessWidget {
+final Color backgroundColor = Color.fromRGBO(75, 209, 255, 1);
 
-  final FacturaModel facturaModel = new FacturaModel(gasto: 'Alimentación',total: 0.0,igv: 0.0, fecha_scaneo: DateTime.now());
+class MenuPage extends StatefulWidget {
 
   @override
+  _MenuPageState createState() => _MenuPageState();
+}
+
+class _MenuPageState extends State<MenuPage> {
+  final FacturaModel facturaModel = new FacturaModel(gasto: 'Alimentación',total: 0.0,igv: 0.0, fecha_scaneo: DateTime.now());
+  bool isCollapsed = true;
+  double screenWidth, screenHeigh;
+  String tittle = 'Lector QR';
+  final Duration duration = const Duration(milliseconds: 300);
+  @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    screenHeigh = size.height;
+    screenWidth = size.width;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Lector QR'),
-        leading: GestureDetector(
-          onTap: () {},
-          child: Icon(
-            Icons.menu
-          ),
-        ),
-      ),
-      body: FutureBuilder(
-        future: menuProvider.cargarData(),
-        initialData: [],
-        builder: ( context, AsyncSnapshot<List<dynamic>> snapshot) {
-          if( snapshot.hasData ) {
-            return GridView.count(
-              primary: true,
-              padding: const EdgeInsets.all(20),
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 40,
-              crossAxisCount: 2,
-              children: _listaMenu( snapshot.data, context ),
-            );
-          } else {
-            return Center(child: CircularProgressIndicator());
-          }
-        },
-      ) 
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Color.fromRGBO(0, 154, 174, 1.0),
+      // appBar: AppBar(
+      //   title: Text('Lector QR'),
+      //   leading: GestureDetector(
+      //     onTap: () {},
+      //     child: Icon(
+      //       Icons.menu
+      //     ),
+      //   ),
+      // ),
+      body: Stack(
+        children: <Widget>[
+          menu(context),
+          dashboard(context),
+        ],
+      )
     );
   }
+
+  
 
   List<Widget> _listaMenu ( List<dynamic> data, BuildContext context ) {
     final List<Widget> opciones = [];
     data.forEach( (opt)  {
-      final widgetTemp = Column(
-        children: <Widget>[
-          Card(
-            elevation: 5.0,
-            child: InkWell(
-              child: Image(
-                image: AssetImage(opt['image']),
-                height: 140.0,
-                fit: BoxFit.fill,
-              ),
-              onTap: () {
-                funcionesMenu( opt['funcion'], context );
-              },
+      final widgetTemp = SingleChildScrollView(
+      
+        child: Column(
+          children: <Widget>[
+            Card(
+              elevation: 5.0,
+              child: InkWell(
+                child: Image(
+                  image: AssetImage(opt['image']),
+                  height: 132.0,
+                  fit: BoxFit.fill,
+                ),
+                onTap: () {
+                  funcionesMenu( opt['funcion'], context );
+                },
+              )
+            ),
+            Text(
+              opt['texto'],
             )
-          ),
-          Text(
-            opt['texto']
-          )
-        ],
+          ],
+        )
       );
-       
       opciones..add(widgetTemp);
     });
     return opciones;
@@ -121,6 +128,148 @@ class MenuPage extends StatelessWidget {
     facturaModel.igv = double.parse(ldatos[4]);
     facturaModel.total = double.parse(ldatos[5]);
     facturaModel.fecha_emision =  DateTime.parse(formatter.format(DateTime.parse(ldatos[6])));
-  } 
+  }
 
+  menu(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Column(
+          
+          mainAxisSize: MainAxisSize.max,
+          //mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(height: 100),
+            imagenUsuario('assets/dp.jpg','Pedro Navaja'),
+            SizedBox(height: 130),
+            //Text("Menu", style: TextStyle(color: Colors.white, fontSize: 20)),
+            menuOptions(Icons.dashboard, 'Menú'),
+            SizedBox(height: 20),
+            menuOptions(Icons.card_travel, "Solicitar Requerimiento"),
+            SizedBox(height: 20),
+            menuOptions(Icons.library_books, "Facturas Emitas"),
+          ],
+        ),
+      ),
+    );
+  }
+
+  menuOptions(icon, text) {
+    return Row(
+      children: <Widget>[
+        Icon(icon, color: Colors.white),
+        InkWell(
+          child: RichText(
+            text: TextSpan(
+              text: text,
+              style: TextStyle(color: Colors.white, fontSize: 15.0)
+            )
+          ),
+          onTap: () {
+            print(text);
+            setState(() {
+              tittle = text;
+              //escogerBody(text);
+            });
+          },
+        ),      
+      ],
+    );
+  }
+
+  dashboard(BuildContext context) {
+    return AnimatedPositioned(
+      duration: duration,
+      top: isCollapsed ? 0 : 0.1 * screenHeigh,
+      bottom: isCollapsed ? 0 :  0.1 * screenWidth,
+      left: isCollapsed ? 0 :  0.6 * screenWidth,
+      right: isCollapsed ? 0 :  -0.4 * screenWidth,
+      child: Material(
+        animationDuration: duration,
+        borderRadius: BorderRadius.all(Radius.circular(40)),
+        elevation: 8,
+        color: backgroundColor,
+        child: Container(
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 48),
+          child: Column(
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  InkWell(
+                    child: Icon(Icons.menu, color: Colors.white),
+                    onTap: () {
+                      setState(() {
+                        isCollapsed = !isCollapsed;
+                      });
+                    },
+                  ),
+                  Text(tittle,style: TextStyle(fontSize: 24, color: Colors.white)),
+                  Icon(Icons.settings, color: Colors.white),
+                ],
+              ),
+              Expanded(
+                child: escogerBody(),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  imagenUsuario(String s,String name) {
+    return Column(
+      children: <Widget>[
+        Container(
+          width: 100.0,
+          height: 100.0,
+          decoration: new BoxDecoration(
+            shape: BoxShape.circle,
+            image: new DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage(s)
+            )
+          ),
+        ),
+        SizedBox(height: 10.0),
+        Text(name,style: TextStyle(color: Colors.white, fontSize: 20.0),),
+      ],
+    );
+  }
+
+  menuCards() {
+        return FutureBuilder(
+          future: menuProvider.cargarData(),
+          initialData: [],
+          builder: ( context, AsyncSnapshot<List<dynamic>> snapshot) {
+            if( snapshot.hasData ) {
+              return GridView.count(
+                primary: true,
+                padding: const EdgeInsets.all(20),
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 40,
+                crossAxisCount: 2,
+                children: _listaMenu( snapshot.data, context ),
+              );
+            } else {
+              return Center(child: CircularProgressIndicator());
+            }
+          },
+        );
+  }
+
+  escogerBody() {
+    var widget;
+    if(tittle == 'Menú'){
+      widget = menuCards();
+    }
+    setState(() {
+      
+    });
+    return widget;
+  } 
 }
