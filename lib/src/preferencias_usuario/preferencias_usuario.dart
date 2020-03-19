@@ -37,6 +37,20 @@ class PreferenciasUsuario {
     _prefs.setString('token', value);
   }
   
+  get celtoken {
+    return _prefs.getString('celtoken')??'';
+  }
+  
+  set celtoken( String value ) {
+    _prefs.setString('celtoken', value);
+  }
+
+  get dni {
+    return _prefs.getString('dni')??'';
+  }
+  set dni( String value ){
+    _prefs.setString('dni', value);
+  }
 
   // GET y SET de la última página
   get ultimaPagina {

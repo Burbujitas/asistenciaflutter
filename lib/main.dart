@@ -6,7 +6,7 @@ import 'package:wallet_app/src/pages/menu/menu.dart';
 import 'package:wallet_app/src/pages/requerimiento/form_requerimiento_vuelo.dart';
 import 'package:wallet_app/src/preferencias_usuario/preferencias_usuario.dart';
 import 'package:wallet_app/src/providers/push_notifications_provider.dart';
-
+import 'package:wallet_app/src/pages/qr_notificacion.dart';
 
 import 'HomeScreen.dart';
  
@@ -41,11 +41,13 @@ class _MyAppState extends State<MyApp> {
           'home'        : ( BuildContext context ) => HomePage(),
           'login'       : ( BuildContext context ) => PasarLogin(),
           'menu'        : ( BuildContext context ) => MenuPage(),
+          'qrnoti'      : ( BuildContext context ) =>QRNOTI(),
           FormFacturaPage.routeName: ( BuildContext context ) => FormFacturaPage(),
           FormRequerimientoVueloPage.routeName: ( BuildContext context ) => FormRequerimientoVueloPage(),
         },
         theme: ThemeData(
           primaryColor: Color.fromRGBO(0, 154, 174, 1.0)
+          
         ),
       );
     

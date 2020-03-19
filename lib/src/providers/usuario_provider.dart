@@ -21,6 +21,7 @@ Future<dynamic> login(String dni, String password) async{
   if(decodedResp.containsKey('token'))
   {
     _prefs.token = decodedResp['token'];
+    guardartoken(dni, _prefs.celtoken);
 
     //return true;
     return { 'ok': true, 'token':decodedResp['token'] };
@@ -32,5 +33,22 @@ Future<dynamic> login(String dni, String password) async{
   
   
 }
+
+Future<bool> guardartoken(String dni,String token) async{
+final resp = await http.put(
+    'https://api-rendiciones.herokuapp.com/tokencelular',
+    body: { 'dni':dni,'token':token}
+    ,
+    headers: {'authorization': _prefs.token}
+  );
+final decodedResp = json.decode(resp.body);
+if(decodedResp.containsKey('Status')=='Actualizacion exitosa'){
+  return true;
+}else{
+  return false;
+}
+
+}
+
 }
 
