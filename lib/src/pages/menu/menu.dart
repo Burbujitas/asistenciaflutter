@@ -2,7 +2,8 @@ import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:wallet_app/src/models/factura_model.dart';
-import 'package:wallet_app/src/pages/form_factura.dart';
+import 'package:wallet_app/src/pages/menu//form_factura.dart';
+import 'package:wallet_app/src/pages/requerimiento/menu_requerimiento.dart';
 import 'package:wallet_app/src/providers/menu_provider.dart';
 
 final Color backgroundColor = Color.fromRGBO(75, 209, 255, 1);
@@ -17,7 +18,7 @@ class _MenuPageState extends State<MenuPage> {
   final FacturaModel facturaModel = new FacturaModel(gasto: 'Alimentación',total: 0.0,igv: 0.0, fecha_scaneo: DateTime.now());
   bool isCollapsed = true;
   double screenWidth, screenHeigh;
-  String tittle = 'Lector QR';
+  String tittle = 'Menú';
   final Duration duration = const Duration(milliseconds: 300);
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,6 @@ class _MenuPageState extends State<MenuPage> {
     screenHeigh = size.height;
     screenWidth = size.width;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: Color.fromRGBO(0, 154, 174, 1.0),
       // appBar: AppBar(
       //   title: Text('Lector QR'),
@@ -55,7 +55,10 @@ class _MenuPageState extends State<MenuPage> {
         child: Column(
           children: <Widget>[
             Card(
-              elevation: 5.0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(600.0),
+              ),
+              elevation: 6.0,
               child: InkWell(
                 child: Image(
                   image: AssetImage(opt['image']),
@@ -243,7 +246,7 @@ class _MenuPageState extends State<MenuPage> {
 
   menuCards() {
         return FutureBuilder(
-          future: menuProvider.cargarData(),
+          future: menuProvider.cargarData("opciones"),
           initialData: [],
           builder: ( context, AsyncSnapshot<List<dynamic>> snapshot) {
             if( snapshot.hasData ) {
@@ -266,8 +269,10 @@ class _MenuPageState extends State<MenuPage> {
     var widget;
     if(tittle == 'Menú'){
       widget = menuCards();
+    } else if (tittle == 'Solicitar Requerimiento') {
+      widget = menuCardRequerimiento();
     }
-    setState(() {
+    setState(() { 
       
     });
     return widget;

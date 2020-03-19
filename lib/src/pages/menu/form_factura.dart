@@ -5,8 +5,8 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:wallet_app/src/models/factura_model.dart';
-import 'package:wallet_app/src/providers/factura_provider.dart';
 import 'package:wallet_app/src/utils/notificaciones_util.dart' as util;
+import 'package:wallet_app/src/utils/formulario_util.dart' as f;
 
 class FormFacturaPage extends StatefulWidget {
   static const routeName = '/formulario_factura';
@@ -61,25 +61,25 @@ class _FormFacturaPageState extends State<FormFacturaPage> {
     return lwidget;
   }
 
-  Widget formItemsDesign(IconData icon, Widget item) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 2.0,horizontal: 10.0), 
-      child: Card(
-        elevation: 4.0,
-        child: ListTile(
-          leading: Icon(icon),
-          title: item,
-          contentPadding: EdgeInsets.only(left: 20.0 ,bottom: 7.0, right: 30.0),
-        )
-      ),
-    );
-  }
+  // Widget f.formItemsDesign(IconData icon, Widget item) {
+  //   return Padding(
+  //     padding: EdgeInsets.symmetric(vertical: 2.0,horizontal: 10.0), 
+  //     child: Card(
+  //       elevation: 4.0,
+  //       child: ListTile(
+  //         leading: Icon(icon),
+  //         title: item,
+  //         contentPadding: EdgeInsets.only(left: 20.0 ,bottom: 7.0, right: 30.0),
+  //       )
+  //     ),
+  //   );
+  // }
 
   List<Widget> listaFormulario(BuildContext context) {
     
     List<Widget> lista = [];
     //RUC
-    final formRuc = formItemsDesign(
+    final formRuc = f.formItemsDesign(
       Icons.person,
       TextFormField(
         initialValue: facturaModel.ruc_emisor,
@@ -92,7 +92,7 @@ class _FormFacturaPageState extends State<FormFacturaPage> {
       )
     );
     //SERIE
-    final formSerie = formItemsDesign(
+    final formSerie = f.formItemsDesign(
       Icons.person_add,
       TextFormField(
         initialValue: facturaModel.serie,
@@ -102,10 +102,9 @@ class _FormFacturaPageState extends State<FormFacturaPage> {
         ),
         onChanged: (value) => facturaModel.serie = value,
       ),
-      
     );
     //NÚMERO
-    final formNumeroSerie = formItemsDesign(
+    final formNumeroSerie = f.formItemsDesign(
       Icons.person_add,
       TextFormField(
         initialValue: facturaModel.numero,
@@ -118,7 +117,7 @@ class _FormFacturaPageState extends State<FormFacturaPage> {
       
     );
     //MONTO
-    final formMonto = formItemsDesign(
+    final formMonto = f.formItemsDesign(
       Icons.attach_money,
       TextFormField(
         initialValue: facturaModel.total.toString(),
@@ -131,7 +130,7 @@ class _FormFacturaPageState extends State<FormFacturaPage> {
       )
     );
     //IGV
-    final formIgv = formItemsDesign(
+    final formIgv = f.formItemsDesign(
       Icons.attach_money,
       TextFormField(
         initialValue: facturaModel.igv.toString(),
@@ -144,7 +143,7 @@ class _FormFacturaPageState extends State<FormFacturaPage> {
       )
     );
     //FECHA
-    final formFecha = formItemsDesign(
+    final formFecha = f.formItemsDesign(
       Icons.calendar_today,
       DateTimeField(
         initialValue: facturaModel.fecha_emision,
@@ -164,7 +163,7 @@ class _FormFacturaPageState extends State<FormFacturaPage> {
       )
     );
     //MONEDA
-    final formMoneda = formItemsDesign(
+    final formMoneda = f.formItemsDesign(
       null,
       Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -195,7 +194,7 @@ class _FormFacturaPageState extends State<FormFacturaPage> {
       )
     );
     //CATEGORÍA
-    final formCategoria = formItemsDesign(
+    final formCategoria = f.formItemsDesign(
       Icons.info,
       Container(
         width: 300,
@@ -222,7 +221,7 @@ class _FormFacturaPageState extends State<FormFacturaPage> {
         ),
       )
     );
-
+    //BOTON
     final formButton =  Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: MaterialButton(

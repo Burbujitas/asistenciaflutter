@@ -11,5 +11,17 @@
             "texto": "Factura Sin QR",
             "funcion": "facturaSinQR"
         }
+    ],
+    "opcionesRequerimiento": [
+        {
+            "image": "assets/requerimiento_viaje.png",
+            "texto": "Requerimiento Vuelo",
+            "funcion": "requerimientoVuelo"
+        },
+        {
+            "image": "assets/requerimiento_viaje.png",
+            "texto": "Requerimiento Compra",
+            "funcion": "requerimientoCompra"
+        }
     ]
 }
