@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:barcode_scan/barcode_scan.dart';
+import 'package:wallet_app/src/preferencias_usuario/preferencias_usuario.dart';
 import 'package:wallet_app/src/providers/notificacion_provider.dart';
 
 
@@ -10,6 +11,7 @@ class QRNOTI extends StatefulWidget {
 }
 
 class _QRNOTIState extends State<QRNOTI> {
+  PreferenciasUsuario _prefs = new PreferenciasUsuario();
   NotiProvider pro = new NotiProvider();
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ _scanQR() async{
   try {
     futureString = await BarcodeScanner.scan();
     if(futureString!=null){
-      pro.encontrarnoti('11111111');
+      pro.buscarusuarios(_prefs.dni);
      // pro.mandarnoti('Asistencia', 'El trabajador nombre asistio');
       print('dsaas');
     }

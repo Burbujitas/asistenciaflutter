@@ -5,8 +5,30 @@ import 'package:wallet_app/src/preferencias_usuario/preferencias_usuario.dart';
 
  class NotiProvider{
    final _prefs = new PreferenciasUsuario();
-Future<dynamic> encontrarnoti(String dni) async{
-final url = 'https://api-rendiciones.herokuapp.com/token/11111111';
+
+Future<dynamic> buscarusuarios(String dni) async{
+  final url = 'https://api-rendiciones.herokuapp.com/buscarjefe/$dni';
+  
+  final resp= await http.get(url, headers: {'authorization': _prefs.token});
+
+  final decodedData = json.decode(resp.body);
+
+  
+    
+
+    
+    if(decodedData.containsKey('usuario_dni_jefe')){
+final dnijefe = decodedData['usuario_dni_jefe'];
+
+    final usnombre = decodedData['usuario_nombre']+' '+decodedData['usuario_apellido'];
+    encontrarnoti(dnijefe, usnombre);
+    }
+  
+}
+
+
+Future<dynamic> encontrarnoti(String dni, usunombre) async{
+final url = 'https://api-rendiciones.herokuapp.com/token/$dni';
 
 final resp = await http.get(url,headers: {'authorization': _prefs.token});
     final decodedData = json.decode(resp.body);
@@ -15,10 +37,8 @@ final resp = await http.get(url,headers: {'authorization': _prefs.token});
          print(dni);
          
          if(dni.containsKey('token')){
-      final hola = dni['usuario_nombre']; 
-
-           print('funciona ${hola}');
-          mandarnoti(dni['token'],'Asistencia', 'El trabajador Fernando llego al trabajar');
+    
+          mandarnoti(dni['token'],'Asistencia', 'El trabajador $usunombre llego a trabajar');
          }
         
         
@@ -37,7 +57,7 @@ Future<bool> mandarnoti(String token,String titulo,String mensaje) async{
                         'title':titulo,
                         'body':mensaje});
 
-
+print('funciono');
   return true;
 }
 

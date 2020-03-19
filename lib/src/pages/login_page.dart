@@ -6,11 +6,15 @@ import 'package:wallet_app/src/preferencias_usuario/preferencias_usuario.dart';
 import 'package:wallet_app/src/providers/usuario_provider.dart';
 
 class SignInOne extends StatelessWidget {
+  
   final _prefs = new PreferenciasUsuario();
+ 
   UserModel cre= new UserModel();
   UsuarioProvider usu = new UsuarioProvider();
+  
   @override
   Widget build(BuildContext context) {
+  
     return Stack(
       children: <Widget>[
         Container(
@@ -38,6 +42,7 @@ class SignInOne extends StatelessWidget {
                   child: Container(
                     color: Color(0xfff5f5f5),
                     child: TextFormField(
+                      
                       style: TextStyle(
                         color: Colors.cyan,
                         fontFamily: 'SFUIDisplay'
@@ -89,6 +94,7 @@ class SignInOne extends StatelessWidget {
                   print(hola);
                    
                     if(_prefs.token!=""){
+                       _prefs.dni=cre.usuario;
                          Navigator.pushNamed(context, 'qrnoti');//since this is only a UI app
                     }
                     else {
@@ -177,5 +183,9 @@ class SignInOne extends StatelessWidget {
     );
   }
 
-  
+  validacion(){
+     if(_prefs.dni==null){
+    _prefs.dni='';
+  }
+  }
 }
