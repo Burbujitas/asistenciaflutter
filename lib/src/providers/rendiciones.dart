@@ -15,7 +15,7 @@ final _prefs = new PreferenciasUsuario();
       final resp = await http.get(url,headers: {'authorization': _prefs.token});
       final decodedData = json.decode(resp.body);
       final List<RendicionModel>rendi = new List();  
-       if(decodedData==null) return [];
+       if(_prefs.token==null) return [];
       //if(decodedData["success"]==false) return [];
        decodedData.forEach((dni){
          print(dni);

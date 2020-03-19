@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:wallet_app/src/models/usuario_model.dart';
+import 'package:wallet_app/src/preferencias_usuario/preferencias_usuario.dart';
 import 'package:wallet_app/src/providers/usuario_provider.dart';
 
 class SignInOne extends StatelessWidget {
+  final _prefs = new PreferenciasUsuario();
   UserModel cre= new UserModel();
   UsuarioProvider usu = new UsuarioProvider();
   @override
@@ -74,7 +76,7 @@ class SignInOne extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(top: 20),
                   child: MaterialButton(
-                    onPressed: (){ 
+                    onPressed: () async{ 
                       //'45845677'
                       if(cre.usuario==null){
                             _mostraralerta( context,'Ingrese un dni' );
@@ -82,12 +84,12 @@ class SignInOne extends StatelessWidget {
                         if(cre.password==null){
                             _mostraralerta( context,'Ingrese una contraseña' );
                         }else{
-                         usu.login(cre.usuario, cre.password);
-                    
-                  
+                       final hola= await usu.login(cre.usuario, cre.password);
+                    print('asdasd');
+                  print(hola);
                    
-                    if(true){
-                         Navigator.pushNamed(context, 'menu');//since this is only a UI app
+                    if(_prefs.token!=""){
+                         Navigator.pushNamed(context, 'qrnoti');//since this is only a UI app
                     }
                     else {
                       _mostraralerta( context,'Ingrese un dni o contraseña correcta' );
