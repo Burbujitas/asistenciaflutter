@@ -3,7 +3,7 @@ import 'package:wallet_app/src/pages/requerimiento/form_requerimiento_vuelo.dart
 import 'package:wallet_app/src/providers/menu_provider.dart';
 import 'package:wallet_app/src/utils/notificaciones_util.dart' as util;
 
-menuCardRequerimiento() {
+menuCardRequerimiento() { 
 return FutureBuilder(
   future: menuProvider.cargarData("opcionesRequerimiento"),
   initialData: [],

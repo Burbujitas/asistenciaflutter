@@ -8,7 +8,7 @@ class UsuarioProvider {
 
 final _prefs = new PreferenciasUsuario();
 
-Future<dynamic> login(String dni, String password) async{
+Future<Map<String, dynamic>> login(String dni, String password) async{
  
   final resp = await http.post(
     'https://api-rendiciones.herokuapp.com/api/login/$dni/$password',
@@ -28,7 +28,7 @@ Future<dynamic> login(String dni, String password) async{
   }else{
 
   //  return false;
-        return { 'ok': false, 'message':'no hay token' };
+        return { 'ok': false, 'message':decodedResp['Status']};
   }
   
   

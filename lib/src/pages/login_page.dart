@@ -89,16 +89,17 @@ class SignInOne extends StatelessWidget {
                         if(cre.password==null){
                             _mostraralerta( context,'Ingrese una contraseña' );
                         }else{
-                       final hola= await usu.login(cre.usuario, cre.password);
+                Map hola= await usu.login(cre.usuario, cre.password);
                     print('asdasd');
                   print(hola);
                    
-                    if(_prefs.token!=""){
+                    if(hola['ok']){
                        _prefs.dni=cre.usuario;
+                         //Navigator.pushNamed(context, 'qrnoti');//since this is only a UI app
                          Navigator.pushNamed(context, 'qrnoti');//since this is only a UI app
                     }
                     else {
-                      _mostraralerta( context,'Ingrese un dni o contraseña correcta' );
+                      _mostraralerta( context, hola['message'] );
                     } 
                         }
                           
